@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../myapi"
+		},
+		{
+			"path": "../vue-apollo-todos"
+		}
+	],
+	"settings": {}
+}

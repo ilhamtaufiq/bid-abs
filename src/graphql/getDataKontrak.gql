@@ -1,0 +1,17 @@
+query getKontrak {
+  rekapKegiatans{
+    id
+    pekerjaan
+    desa
+    kecamatan
+    nomor_kontrak
+    nilai_kontrak
+    nama_rekanan
+    tgl_mulai
+    tgl_selesai
+    map{
+      lat
+      long_
+    }
+  }
+}

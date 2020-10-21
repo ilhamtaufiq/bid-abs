@@ -1,0 +1,34 @@
+
+query getMaps {
+  maps {
+    id
+    lat
+    long_
+  }
+}
+mutation createMap($lat: Float!, $long_: Float!) {
+  createMap(input: {data: {lat: $lat, long_: $long_ }}) {
+    map {
+      id
+      lat
+      long_
+    }
+  }
+}
+mutation deleteMaps($id: ID!) {
+  deleteMap(input: { where: { id: $id }}) {
+    map {
+      id
+    }
+  }
+}
+
+mutation updateMaps($id: ID!, $lat: Float, $long_: Float) {
+  updateMap(input: {where: {id: $id} data: {lat: $lat, long_: $long_ }}) {
+    map {
+      id
+      lat
+      long_
+    }
+  }
+}

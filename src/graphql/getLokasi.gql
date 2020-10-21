@@ -1,0 +1,9 @@
+query getDesa{
+	kecamatans{
+    id
+    nama_kecamatan
+    desa_id {
+      desa
+    }
+  }
+}

@@ -1,0 +1,9 @@
+mutation createMap($lat: Float!, $long_: Float!) {
+  createMap(input: {data: {lat: $lat, long_: $long_ }}) {
+    map {
+      id
+      lat
+      long_
+    }
+  }
+}
