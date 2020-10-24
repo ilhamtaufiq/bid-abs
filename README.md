@@ -1,3 +1,4 @@
 # Tugas Kerja Praktek
- [![npm version](https://badge.fury.io/js/vuejs.svg)](https://badge.fury.io/js/vuejs)
- ![halaman login](login.png)
+[![Build Status](https://travis-ci.com/ilhamtaufiq/bid-abs.svg?branch=main)](https://travis-ci.com/ilhamtaufiq/bid-abs) 
+
+![halaman login](screenshot/login.png)
