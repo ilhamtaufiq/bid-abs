@@ -64,8 +64,8 @@ import SocialLogin from '../components/extra-components/SocialLogin';
 export default {
     data() {
         return {
-            email: '485cjr@gmail.com',
-            password: 'cianjur22',
+            email: '',
+            password: '',
             checkbox_remember_me: false
         }
     },
