@@ -2,10 +2,6 @@
 	File Name: TheNavbar.vue
 	Description: Navbar component
 	Component Name: TheNavbar
-	----------------------------------------------------------------------------------------
-	Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-	Author: Pixinvent
-	Author URL: http://www.themeforest.net/user/pixinvent
 ========================================================================================== -->
 
 
@@ -144,46 +140,14 @@
 						<img
 							v-else
 							key="localImg"
-							:src="require(`@/assets/images/portrait/small/${activeUserImg}`)"
+							:src="require(`@/assets/images/logo/user.png`)"
 							alt="user-img"
 							width="40"
 							height="40"
 							class="rounded-full shadow-md cursor-pointer block" />
 					</div>
 					<vs-dropdown-menu class="vx-navbar-dropdown">
-						<ul style="min-width: 9rem">
-							<li
-                class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-                @click="$router.push('/pages/profile')">
-
-                <feather-icon icon="UserIcon" svgClasses="w-4 h-4" />
-                <span class="ml-2">Profile</span>
-              </li>
-							<li
-                class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-                @click="$router.push('/apps/email')">
-
-                <feather-icon icon="MailIcon" svgClasses="w-4 h-4" />
-                <span class="ml-2">Inbox</span>
-              </li>
-							<li
-                class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-                @click="$router.push('/apps/todo')">
-
-                <feather-icon icon="CheckSquareIcon" svgClasses="w-4 h-4" />
-                <span class="ml-2">Tasks</span>
-              </li>
-							<li
-                class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
-                @click="$router.push('/apps/chat')">
-
-                <feather-icon icon="MessageSquareIcon" svgClasses="w-4 h-4" />
-                <span class="ml-2">Chat</span>
-              </li>
-
-							<vs-divider class="m-1"></vs-divider>
-
-							<li
+				<li
                 class="flex py-2 px-4 cursor-pointer hover:bg-primary hover:text-white"
                 @click="logout">
                 <feather-icon icon="LogOutIcon" svgClasses="w-4 h-4"/>

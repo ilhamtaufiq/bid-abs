@@ -43,6 +43,6 @@ export default [
     url: "/2020/koordinat",
     name: "Koordinat",
     slug: "koordinat",
-    icon: "CheckSquareIcon",
+    icon: "MapIcon",
   },
 ]
