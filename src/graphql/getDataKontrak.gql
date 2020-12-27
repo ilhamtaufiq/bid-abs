@@ -9,9 +9,12 @@ query getKontrak {
     nama_rekanan
     tgl_mulai
     tgl_selesai
-    map{
-      lat
-      long_
+  }
+}
+mutation deleteRekapKegiatan($id: ID!) {
+  deleteRekapKegiatan(input: {where: {id: $id}}) {
+    rekapKegiatan {
+      id
     }
   }
 }

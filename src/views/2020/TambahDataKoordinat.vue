@@ -12,6 +12,10 @@
         <!-- NAME -->
         <vs-input type="number" label="Latitude" name="lat" v-model.number="lat" class="mt-5 w-full" />
         <vs-input type="number" label="Longtitude" name="long_" v-model.number="long_" class="mt-5 w-full" />
+        <vs-select v-model.text="pekerjaan" class="w-full select-large" label="Pekerjaan" placeholder="Pilih Pekerjaan">
+          <vs-select-item :v-model.text="pekerjaan" :name="pekerjaan" :key="index" :value="item.pekerjaan" :text="item.pekerjaan" v-for="(item,index) in datakontrak" class="w-full" />
+        </vs-select>
+
 
       </div>
     </VuePerfectScrollbar>
@@ -40,6 +44,8 @@ export default {
   name: 'mapsCreate',
   data() {
     return {
+      datakontrak:[],
+      pekerjaan: null,
       lat: null,
       long_: null,
       settings: { // perfectscrollbar settings
@@ -61,17 +67,31 @@ export default {
       }
     }
   },
+    apollo:{
+    datakontrak:{
+      query: getMaps,
+      variables () {
+        // don't do stupid thing, please.
+    
+      },
+      update ({rekapKegiatans}) {
+        return rekapKegiatans
+      },
+    }
+  },
   methods: {
     initValues() {
     },
     createMap(){
       const lat = this.lat;
       const long_ = this.long_;
+      const pekerjaan = this.pekerjaan;
       this.$apollo.mutate({
           mutation: addMaps,
           variables:{
             lat: lat,
-            long_: long_
+            long_: long_,
+            pekerjaan: pekerjaan
           },
           update: (store, { data: { createMap } }) => {
 							// Add to All tasks list
@@ -94,7 +114,8 @@ export default {
 								__typename: 'Maps',
 								id: null,
 								lat,
-								long_,
+                long_,
+                pekerjaan,
 							},
 						},
         })

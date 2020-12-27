@@ -1,11 +1,3 @@
-<!-- =========================================================================================
-    File Name: TheCustomizer.vue
-    Description: Template Customizer
-    Component Name: TheCustomizer
-    ----------------------------------------------------------------------------------------
-     
-========================================================================================== -->
-
 <template>
     <div id="theme-customizer">
         <vs-button @click.stop="active=!active" color="primary" type="filled" class="customizer-btn" icon-pack="feather" icon="icon-settings"></vs-button>

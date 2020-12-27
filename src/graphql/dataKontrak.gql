@@ -38,3 +38,55 @@ mutation createRekapKegiatan(
     }
   }
 }
+query dataKontrak ($id: ID!) {
+  rekapKegiatan (id: $id) {
+    id
+    pekerjaan
+    kegiatan
+    desa
+    kecamatan
+    nomor_kontrak
+    nilai_kontrak
+    nama_rekanan
+    tgl_mulai
+    tgl_selesai
+  }
+}
+    mutation updateKontrak(
+  $id: ID!
+  $pekerjaan: String
+  $desa: String
+  $kecamatan: String
+  $nomor_kontrak: String
+  $nilai_kontrak: String
+  $nama_rekanan: String
+  $tgl_mulai: Date
+  $tgl_selesai: Date
+){
+  updateRekapKegiatan(
+    input: {where: {id: $id} 
+    data: {
+    pekerjaan: $pekerjaan 
+    desa: $desa 
+    kecamatan: $kecamatan
+    nomor_kontrak: $nomor_kontrak
+    nilai_kontrak: $nilai_kontrak
+    nama_rekanan: $nama_rekanan
+    tgl_mulai: $tgl_mulai
+    tgl_selesai: $tgl_selesai
+    
+    }}) {
+    rekapKegiatan {
+    id
+    pekerjaan
+    desa
+    kecamatan
+    nomor_kontrak
+    nilai_kontrak
+    nama_rekanan
+    tgl_mulai
+    tgl_selesai
+    }
+  }
+}
+

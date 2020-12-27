@@ -26,14 +26,20 @@ export default [
     i18n: "Dashboard",
   },
   {
-    header: "Apps",
-    i18n: "Apps",
+    header: "Data",
+    i18n: "Data",
   },
 
   {
     url: "/2020/rekapkegiatan",
     name: "Rekap Kontrak",
     slug: "rekapkontrak",
+    icon: "CheckSquareIcon",
+  },
+  {
+    url: "/2020/airminum",
+    name: "Daftar SPAM",
+    slug: "airminum",
     icon: "CheckSquareIcon",
   },
   {

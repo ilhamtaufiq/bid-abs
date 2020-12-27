@@ -1,0 +1,45 @@
+query getAirMinum {
+  airMinums {
+    id
+    nama_pekerjaan
+    jumlah_sr
+    panjang_pipa
+    penduduk_terlayani
+    nama_pengelola
+  }
+    rekapKegiatans (where: { kegiatan: "Pembangunan SPAM Perdesaan" }) {
+    pekerjaan
+  }
+}
+mutation deleteAirMinum($id: ID!) {
+  deleteAirMinum(input: {where: {id: $id}}) {
+    airMinum {
+      id
+    }
+  }
+}
+
+mutation addAirMinum(
+  $nama_pekerjaan: String,
+  $jumlah_sr: Int,
+  $panjang_pipa: Int,
+  $penduduk_terlayani: Int,
+  $nama_pengelola:String
+){
+  createAirMinum(input: {data:{
+    nama_pekerjaan: $nama_pekerjaan
+    jumlah_sr: $jumlah_sr
+    panjang_pipa:$panjang_pipa
+    penduduk_terlayani: $penduduk_terlayani
+    nama_pengelola: $nama_pengelola
+  }}){
+    airMinum{
+      id
+      nama_pekerjaan
+      jumlah_sr
+      panjang_pipa
+      penduduk_terlayani
+      nama_pengelola
+    }
+  }
+}

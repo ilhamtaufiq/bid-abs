@@ -1,4 +1,5 @@
 <template>
+<vx-card>
 <vs-table
       :sst="true"
       @search="handleSearch"
@@ -15,8 +16,32 @@
           <!-- Tambah Baru -->
           <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="$router.push('/2020/datakontrak')">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
-              <span class="ml-2 text-base text-primary">Add New</span>
+              <span class="ml-2 text-base text-primary">Tambah</span>
           </div>
+           <div class="p-3 mb-4 mr-4">
+             <!-- <span class="ml-2 text-base text-primary">Download Data</span> -->
+             <vs-button @click="activePrompt2 = true" color="primary" type="border">Download Data</vs-button>
+          </div>
+              <vs-prompt
+                @vs-cancel="clearValMultiple"
+                @vs-accept="exportToExcel"
+                @vs-close="close"
+                :vs-active.sync="activePrompt2">
+                <div class="con-exemple-prompt">
+                  Masukkan Nama dan Format File yang Diinginkan
+                  <vs-input  v-model="fileName" placeholder="Nama File.." class="w-full" />
+              <vs-select
+                label="Format"
+                v-model="selectedFormat"
+                >
+                <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="item,index in formats" />
+              </vs-select>
+
+                <vs-alert :active="!validName" color="danger" vs-icon="new_releases" class="mt-4" >
+                  Fields can not be empty please enter the data
+                </vs-alert>
+                </div>
+              </vs-prompt>
         </div>    
       </div>
         </template>
@@ -44,18 +69,21 @@
               <div class="con-btns-user flex items-center justify-between">
                 <div class="con-userx flex items-center justify-start">
                   <span>{{ tr.nama_rekanan }}</span>
-
                 </div>
                 <div class="flex">
-                  <vs-button type="border" size="small" icon-pack="feather" icon="icon-edit" color="success" class="mr-2"></vs-button>
-                  <vs-button type="border" size="small" icon-pack="feather" icon="icon-trash" color="danger"></vs-button>
+                  <vx-tooltip text="Klik untuk mengubah data" position="left">
+                  <vs-button type="border" size="small" icon-pack="feather" @click="$router.push(`/2020/datakontrak/?edit=${tr.id}`)" icon="icon-edit" color="success" class="mr-2"></vs-button>
+                  </vx-tooltip>
+                  <vx-tooltip text="Klik untuk menghapus data" position="left">
+                  <vs-button type="border" size="small" icon-pack="feather" @click="deleteKontrak(tr)" icon="icon-trash" color="danger"></vs-button>
+                  </vx-tooltip>
                 </div>
               </div>
               <vs-list>
-                <vs-list-item icon-pack="feather" icon="icon-calendar" :title="tr.tgl_mulai">Mulai</vs-list-item>
-                <vs-list-item icon-pack="feather" icon="icon-calendar" :title="tr.tgl_selesai">Selesai</vs-list-item>
-                <vs-list-item icon-pack="feather" icon="icon-file-text" :title="tr.nomor_kontrak">Nomor Kontrak</vs-list-item>
-                <vs-list-item icon-pack="feather" icon="icon-file-text" :title="tr.nilai_kontrak">Nilai Kontrak</vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-calendar" title="Mulai">{{tr.tgl_mulai}}</vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-calendar" title="Selesai">{{tr.tgl_selesai}}</vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-file-text" title="Nomor Kontrak">{{tr.nomor_kontrak}}</vs-list-item>
+                <vs-list-item icon-pack="feather" icon="icon-file-text" title="Nilai Konrak">{{tr.nilai_kontrak}}</vs-list-item>
               </vs-list>
             </div>
           </template>
@@ -64,18 +92,41 @@
           </template>
 
     </vs-table>
+    </vx-card>
 </template>
 
 
 
 <script>
-import getKontrak from '@/graphql/getDataKontrak.gql'
+import {getKontrak, deleteRekapKegiatan} from '@/graphql/getDataKontrak.gql'
+import vSelect from 'vue-select'
+import VxCard from '../../components/vx-card/VxCard.vue'
+import VxTooltip from '../../layouts/components/vx-tooltip/VxTooltip.vue'
+
+
 
 export default {
+  components: { VxCard, VxTooltip },
   data() {
     return {
+      fileName: "",
+      formats:[
+        {text:"xlsx", value:"xlsx"}, 
+        {text:"csv", value:"csv"}, 
+        {text:"txt", value:"txt"}
+        ],
+      cellAutoWidth: true,
+      selectedFormat: "xlsx",
+      activePrompt2:false,
+      val:'',
+      valMultipe:{
+        value1:'',
+        value2:''
+      },
         rekapkontrak:[],
-        selected:[]
+        selected:[],
+        headerVal: ["id", "desa", "kecamatan", "pekerjaan", "tgl_mulai", "tgl_selesai", "nomor_kontrak", "nilai_kontrak"],
+
     }
   },
     apollo:{
@@ -90,7 +141,72 @@ export default {
       },
     }
   },
+    computed:{
+    validName(){
+      return (this.valMultipe.value1.length > 0 && this.valMultipe.value2.length > 0)
+    }
+  },
     methods:{
+    exportToExcel() {
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['ID', 'Desa', 'Kecamatan', 'Pekerjaan', 'Mulai', 'Selesai', 'Nomor Kontrak', 'Nilai kontrak']
+        const list = this.rekapkontrak
+        const data = this.formatJson(this.headerVal, list)
+        excel.export_json_to_excel({
+          header: tHeader, //Header Required
+          data, //Specific data Required
+          filename: this.fileName,
+          autoWidth: true, //Optional
+          bookType: this.selectedFormat
+        })
+      })
+        this.$vs.notify({
+        color:'success',
+        title:'Unduh Data',
+        text:'Data Telah Berhasil Diunduh'
+      })
+    },
+        formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => {
+        // Add col name which needs to be translated
+        // if (j === 'timestamp') {
+        //   return parseTime(v[j])
+        // } else {
+        //   return v[j]
+        // }
+
+        return v[j]
+      }))
+    },
+    deleteKontrak(tr) {
+      this.selected
+			this.$apollo.mutate({
+				mutation: deleteRekapKegiatan,
+				variables: {
+					id: tr.id
+        },
+        update: (store) => {
+					const queries = [
+						{ query: getKontrak },
+						{ query: getKontrak, variables: {  } },
+					]
+					const data = queries.map(query => store.readQuery(query))
+					data.forEach(({ rekapKegiatans: list }) => {
+						const index = list.findIndex(o => o.id === tr.id)
+						if (index !== -1) {
+							list.splice(index, 1)
+						}
+					})
+					queries.forEach((query, index) => {
+						store.writeQuery({
+							...query,
+							data: data[index],
+						})
+					})
+        },
+      })
+      location.reload()
+    },
     handleSearch(searching) {
       let _print = `The user searched for: ${searching}\n`
       this.$refs.pre.appendChild(document.createTextNode(_print))
@@ -102,6 +218,26 @@ export default {
     handleSort(key, active) {
       let _print = `the user ordered: ${key} ${active}\n`
       this.$refs.pre.appendChild(document.createTextNode(_print))
+    },
+      acceptAlert(){
+      this.clearValMultiple();
+      this.$vs.notify({
+        color:'success',
+        title:'Unduh Data',
+        text:'Data Telah Berhasil Diunduh'
+      })
+    },
+    close(){
+      this.$vs.notify({
+        color:'danger',
+        title:'Closed',
+        text:'You close a dialog!'
+      })
+    },
+    clearValMultiple() {
+      this.valMultipe.value1 = "";
+      this.valMultipe.value2 = "";
+
     }
   }
 

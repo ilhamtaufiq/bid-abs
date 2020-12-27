@@ -1,9 +1,10 @@
-mutation createMap($lat: Float!, $long_: Float!) {
-  createMap(input: {data: {lat: $lat, long_: $long_ }}) {
+mutation createMap($lat: Float!, $long_: Float!, $pekerjaan: String!) {
+  createMap(input: {data: {lat: $lat, long_: $long_, pekerjaan: $pekerjaan }}) {
     map {
       id
       lat
       long_
+      pekerjaan
     }
   }
 }

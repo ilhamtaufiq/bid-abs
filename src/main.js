@@ -8,6 +8,13 @@ import { provide } from '@vue/composition-api'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 
 
+import VueCurrencyInput from 'vue-currency-input'
+const pluginOptions = {
+    /* see config reference */
+    globalOptions: { currency: 'IDR', }
+  }
+  
+Vue.use(VueCurrencyInput, pluginOptions)
 
 Vue.config.productionTip = false;
 

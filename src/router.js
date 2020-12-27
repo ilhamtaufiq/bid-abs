@@ -100,6 +100,34 @@ const router = new Router({
                         rule: 'admin'
                     }
                 },
+                {
+                    path: '2020/perjadin',
+                    name: 'PerjaDin',
+                    pageTitle: 'Perjalanan Dinas',
+                    component:() => import('./views/2020/PerjaDin.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                {
+                    path: '2020/airminum',
+                    name: 'AirMinum',
+                    pageTitle: 'Air Minum',
+                    component:() => import('./views/2020/DaftarAirMinum.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                {
+                    path: '2020/tambahairminum',
+                    name: 'TambahDaftarAirMinum',
+                    pageTitle: 'Tambah Data Air Minum',
+                    component:() => import('./views/2020/TambahDaftarAirMinum.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                
                 
                 
 

@@ -4,14 +4,28 @@ query getMaps {
     id
     lat
     long_
+    pekerjaan
+  }
+  rekapKegiatans{
+    id
+    pekerjaan
+    desa
+    kecamatan
+    nomor_kontrak
+    nilai_kontrak
+    nama_rekanan
+    tgl_mulai
+    tgl_selesai
   }
 }
+
 mutation createMap($lat: Float!, $long_: Float!) {
   createMap(input: {data: {lat: $lat, long_: $long_ }}) {
     map {
       id
       lat
       long_
+      pekerjaan
     }
   }
 }
@@ -29,6 +43,7 @@ mutation updateMaps($id: ID!, $lat: Float, $long_: Float) {
       id
       lat
       long_
+      pekerjaan
     }
   }
 }
