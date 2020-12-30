@@ -16,6 +16,30 @@
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">Tambah Baru</span>
           </div>
+          <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="activePrompt2 = true" >
+              <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" />
+              <span class="ml-2 text-base text-primary">Download Data</span>
+                            <vs-prompt
+                @vs-cancel="clearValMultiple"
+                @vs-accept="exportToExcel"
+                @vs-close="close"
+                :vs-active.sync="activePrompt2">
+                <div class="con-exemple-prompt">
+                  Masukkan Nama dan Format File yang Diinginkan
+                  <vs-input  v-model="fileName" placeholder="Nama File.." class="w-full" />
+              <vs-select
+                label="Format"
+                v-model="selectedFormat"
+                >
+                <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="item,index in formats" />
+              </vs-select>
+
+                <vs-alert :active="!validName" color="danger" vs-icon="new_releases" class="mt-4" >
+                  Fields can not be empty please enter the data
+                </vs-alert>
+                </div>
+              </vs-prompt>
+          </div>
         </div> 
       </div>
       <template slot="thead">
@@ -67,9 +91,22 @@ import {getAirMinum, deleteAirMinum} from '@/graphql/AirMinum.gql'
 export default {
   data() {
     return {
-        dataAirMinum:[],
-        selected:[],
-        headerVal: ["pekerjaan", "jumlah_sr", "panjang_pipa", "penduduk_terlayani"],
+    fileName: "",
+          formats:[
+            {text:"xlsx", value:"xlsx"}, 
+            {text:"csv", value:"csv"}, 
+            {text:"txt", value:"txt"}
+            ],
+          cellAutoWidth: true,
+          selectedFormat: "xlsx",
+          activePrompt2:false,
+          val:'',
+          valMultipe:{
+            value1:'',
+            value2:''
+          },
+            selected:[],
+        headerVal: ["nama_pekerjaan", "jumlah_sr", "panjang_pipa", "penduduk_terlayani"],
 
     }
   },
@@ -94,9 +131,9 @@ export default {
         excel.export_json_to_excel({
           header: tHeader, //Header Required
           data, //Specific data Required
-          filename: 'Rekap Pembangunan SPAM', //Optional
+          filename: this.fileName,
           autoWidth: true, //Optional
-          bookType: 'xlsx' //Optional
+          bookType: this.selectedFormat
         })
       })
     },

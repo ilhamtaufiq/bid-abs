@@ -8,7 +8,6 @@
     <div class="vx-col sm:w-1/2 w-full mb-2">
       <vs-input v-validate="'required'"  class="w-full" label-placeholder="Kegiatan" v-model="newKontrak.kegiatan" />
           <span class="text-danger text-sm" v-show="errors.has('kegiatan')">{{ errors.first('kegiatan') }}</span>
-
     </div>
   </div>
   <div class="vx-row">
@@ -109,7 +108,7 @@ export default {
                                 },
                             },
             });
-            window.location.replace("http://localhost:8080/2020/rekapkegiatan");
+            window.location.replace("/2020/rekapkegiatan");
             
             
         },

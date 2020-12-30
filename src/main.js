@@ -7,6 +7,11 @@ import apolloClient from "./apollo/apollo-vue";
 import { provide } from '@vue/composition-api'
 import { DefaultApolloClient } from '@vue/apollo-composable'
 
+import vSelect from 'vue-select'
+
+Vue.component('v-select', vSelect)
+
+
 
 import VueCurrencyInput from 'vue-currency-input'
 const pluginOptions = {

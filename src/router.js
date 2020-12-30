@@ -46,7 +46,11 @@ const router = new Router({
         // =============================================================================
                 {
                     path: '/',
-                    redirect: '/2020/dashboard/'
+                    name: 'Dashboard',
+                    component: () => import('./views/2020/Dashboard.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
                 },
                 {
                     path: '/dashboard/analytics',
