@@ -1,12 +1,3 @@
-<!-- =========================================================================================
-    File Name: TheFooter.vue
-    Description: Footer component
-    Component Name: TheFooter
-    ----------------------------------------------------------------------------------------
-     
-========================================================================================== -->
-
-
 <template>
     <footer class="the-footer flex-wrap justify-between" :class="classes">
         <span>COPYRIGHT @ {{ new Date().getFullYear() }} <a href="/" target="_blank" rel="nofollow">Bidang Air Bersih dan Sanitasi</a> All rights Reserved</span>

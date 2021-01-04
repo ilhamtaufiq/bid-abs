@@ -5,8 +5,8 @@
             <div class="h-full">
                 <div class="customizer-header mt-6 flex items-center justify-between px-6">
                     <div>
-                        <h4>THEME CUSTOMIZER</h4>
-                        <small>Customize & Preview in Real Time</small>
+                        <h4>Tema</h4>
+                        <small>Ubah Tampilan</small>
                     </div>
                     <feather-icon icon="XIcon" @click.stop="active = false" class="cursor-pointer"></feather-icon>
                 </div>
@@ -16,7 +16,7 @@
                     <div class="px-6">
                         <!-- THEME COLORS -->
                         <div>
-                            <h5 class="mb-4">Theme Color</h5>
+                            <h5 class="mb-4">Warna</h5>
                             <ul class="clearfix">
                                 <li @click="updatePrimaryColor(color)" v-for="color in themeColors" class="w-10 cursor-pointer h-10 rounded-lg m-2 float-left" :style="{backgroundColor: color}" :class="{'shadow-outline': color == primaryColor}" :key="color"></li>
                                 <li @click="updatePrimaryColor(customPrimaryColor)" class="w-10 cursor-pointer h-10 rounded-lg m-2 float-left" :style="{backgroundColor: customPrimaryColor}" :class="{'shadow-outline': customPrimaryColor == primaryColor}"></li>
@@ -48,7 +48,7 @@
 
                         <!-- NAVBAR COLOR -->
                         <div class="mt-4">
-                            <h5>Navbar Color</h5>
+                            <h5>Warna Navbar</h5>
                             <ul class="clearfix">
 
                                 <!-- WHITE COLOR -->
@@ -82,7 +82,7 @@
 
                         <!-- NAVBAR TYPE -->
                         <div class="mt-4">
-                            <h5 class="mb-2">Navbar Type</h5>
+                            <h5 class="mb-2">Tipe Navbar</h5>
                             <div>
                                 <vs-radio class="mr-4" v-model="navbarTypeLocal" vs-value="navbar-hidden">Hidden</vs-radio>
                                 <vs-radio class="mr-4" v-model="navbarTypeLocal" vs-value="navbar-static">Static</vs-radio>
@@ -94,7 +94,7 @@
 
                         <!-- FOOTER TYPE -->
                         <div class="mt-4">
-                            <h5 class="mb-2">Footer Type</h5>
+                            <h5 class="mb-2">Tipe Footer</h5>
                             <div>
                                 <vs-radio class="mr-4" v-model="footerTypeLocal" vs-value="hidden">Hidden</vs-radio>
                                 <vs-radio class="mr-4" v-model="footerTypeLocal" vs-value="static">Static</vs-radio>
@@ -105,14 +105,14 @@
 
                         <!-- SHOW SCROLL TO TOP -->
                         <div class="mt-4 flex justify-between">
-                            <h5 class="mb-2">Hide Scroll To Top</h5>
+                            <h5 class="mb-2">Sembunyikan Scroll To Top</h5>
                             <vs-switch v-model="hideScrollToTopLocal"/>
                         </div>
                         <vs-divider></vs-divider>
 
                         <!-- ROUTER ANIMATION -->
                         <div class="mt-4">
-                            <h5 class="mb-2">Router Animation {{ routerTransitionLocal }}</h5>
+                            <h5 class="mb-2">Animasi Router {{ routerTransitionLocal }}</h5>
                             <vs-select v-model="routerTransitionLocal">
                                 <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="(item,index) in routerTransitionsList" />
                             </vs-select>

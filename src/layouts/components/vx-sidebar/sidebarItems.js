@@ -19,7 +19,7 @@
 
 export default [
   {
-    url: "/2020/dashboard",
+    url: "/",
     name: "Dashboard",
     slug: "dashboard",
     icon: "HomeIcon",
@@ -27,7 +27,6 @@ export default [
   },
   {
     header: "Data",
-    i18n: "Data",
   },
 
   {

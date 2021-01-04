@@ -20,9 +20,7 @@
               <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">Download Data</span>
                             <vs-prompt
-                @vs-cancel="clearValMultiple"
                 @vs-accept="exportToExcel"
-                @vs-close="close"
                 :vs-active.sync="activePrompt2">
                 <div class="con-exemple-prompt">
                   Masukkan Nama dan Format File yang Diinginkan
@@ -33,10 +31,6 @@
                 >
                 <vs-select-item :key="index" :value="item.value" :text="item.text" v-for="item,index in formats" />
               </vs-select>
-
-                <vs-alert :active="!validName" color="danger" vs-icon="new_releases" class="mt-4" >
-                  Fields can not be empty please enter the data
-                </vs-alert>
                 </div>
               </vs-prompt>
           </div>
@@ -74,7 +68,12 @@
             <span vs-align="center">{{tr.penduduk_terlayani}}</span>
           </vs-td>
           <vs-td>
-            <vs-button @click="delAirMinum(tr)"color="primary" icon="delete"></vs-button>
+                              <vs-button type="border" size="small" icon-pack="feather" @click="delAirMinum(tr)" icon="icon-delete" color="success" class="mr-2"></vs-button>
+                                                          <vs-button type="border" size="small" icon-pack="feather" @click="$router.push(`/2020/tambahairminum/?edit=${tr.id}`)" icon="icon-edit" color="success" class="mr-2"></vs-button>
+
+
+
+            
           </vs-td> 
         </vs-tr>
       </template> 
@@ -91,7 +90,7 @@ import {getAirMinum, deleteAirMinum} from '@/graphql/AirMinum.gql'
 export default {
   data() {
     return {
-    fileName: "",
+          fileName: "",
           formats:[
             {text:"xlsx", value:"xlsx"}, 
             {text:"csv", value:"csv"}, 
@@ -101,12 +100,8 @@ export default {
           selectedFormat: "xlsx",
           activePrompt2:false,
           val:'',
-          valMultipe:{
-            value1:'',
-            value2:''
-          },
-            selected:[],
-        headerVal: ["nama_pekerjaan", "jumlah_sr", "panjang_pipa", "penduduk_terlayani"],
+          selected:[],
+          headerVal: ["nama_pekerjaan", "jumlah_sr", "panjang_pipa", "penduduk_terlayani"],
 
     }
   },
@@ -162,7 +157,7 @@ export default {
 						{ query: getAirMinum, variables: {  } },
 					]
 					const data = queries.map(query => store.readQuery(query))
-					data.forEach(({ rekapKegiatans: list }) => {
+					data.forEach(({ airMinums: list }) => {
 						const index = list.findIndex(o => o.id === tr.id)
 						if (index !== -1) {
 							list.splice(index, 1)

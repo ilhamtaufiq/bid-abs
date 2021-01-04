@@ -60,14 +60,6 @@ const router = new Router({
                         rule: 'editor'
                     }
                 },
-                {
-                    path: '/2020/dashboard/',
-                    name: 'Dashboard',
-                    component: () => import('./views/2020/Dashboard.vue'),
-                    meta: {
-                        rule: 'admin'
-                    }
-                },
     // =============================================================================
     // 2020 ROUTES
     // =============================================================================

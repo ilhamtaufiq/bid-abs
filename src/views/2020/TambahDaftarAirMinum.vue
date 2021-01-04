@@ -58,8 +58,8 @@ export default {
         // don't do stupid thing, please.
     
       },
-      update ({rekapKegiatans}) {
-        return rekapKegiatans
+      update ({airMinums}) {
+        return airMinums
       },
     }
   },
@@ -82,7 +82,7 @@ export default {
                             },
             });
             console.log("DATA", data)
-            window.location.replace("http://localhost:8080/2020/airminum");
+            window.location.replace("/2020/airminum");
         },
     },
 

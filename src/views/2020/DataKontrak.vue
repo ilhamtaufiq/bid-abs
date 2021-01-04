@@ -130,7 +130,7 @@ export default {
                     id: this.$route.query.edit
                 }
             });
-            window.location.replace("http://localhost:8080/2020/rekapkegiatan");
+            window.location.replace("/2020/rekapkegiatan");
         }
     },
     created(){
