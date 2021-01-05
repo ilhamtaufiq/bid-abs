@@ -9,7 +9,10 @@ import { onError } from "apollo-link-error"
 // HTTP connection to the API
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: process.env.VUE_APP_GRAPHQL_URL || "https://abs-dpkpp.herokuapp.com/graphql"
+  uri: process.env.VUE_APP_GRAPHQL_URL || "https://abs-dpkpp.herokuapp.com/graphql",
+  fetchOptions: {
+    mode: 'no-cors',
+  },
 });
 
 // Error Handling
