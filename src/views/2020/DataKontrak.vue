@@ -96,7 +96,7 @@ export default {
                       createRekapKegiatan: {
                         __typename: 'rekapKegiatan',
                         program: this.newKontrak.program,
-                        kegiatan: this.newKontrak.Kegiatan,
+                        kegiatan: this.newKontrak.kegiatan,
                         pekerjaan: this.newKontrak.pekerjaan,
                         desa: this.newKontrak.desa,
                         kecamatan: this.newKontrak.kecamatan,
