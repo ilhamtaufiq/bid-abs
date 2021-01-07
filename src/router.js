@@ -123,6 +123,15 @@ const router = new Router({
                         rule: 'admin'
                     }
                 },
+                {
+                    path: '2020/surat',
+                    name: 'Surat',
+                    pageTitle: 'Agenda Surat',
+                    component:() => import('./views/2020/surat/Todo.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
                 
                 
                 

@@ -20,7 +20,6 @@ mutation deleteAirMinum($id: ID!) {
 }
 
 mutation addAirMinum(
-  $kegiatan: String,
   $nama_pekerjaan: String,
   $jumlah_sr: Int,
   $panjang_pipa: Int,
@@ -28,7 +27,6 @@ mutation addAirMinum(
   $nama_pengelola:String
 ){
   createAirMinum(input: {data:{
-    kegiatan: $kegiatan
     nama_pekerjaan: $nama_pekerjaan
     jumlah_sr: $jumlah_sr
     panjang_pipa:$panjang_pipa

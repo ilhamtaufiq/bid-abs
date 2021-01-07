@@ -54,6 +54,8 @@ query dataKontrak ($id: ID!) {
 }
     mutation updateKontrak(
   $id: ID!
+  $program: String
+  $kegiatan: String
   $pekerjaan: String
   $desa: String
   $kecamatan: String
@@ -66,6 +68,8 @@ query dataKontrak ($id: ID!) {
   updateRekapKegiatan(
     input: {where: {id: $id} 
     data: {
+    program: $program
+    kegiatan: $kegiatan
     pekerjaan: $pekerjaan 
     desa: $desa 
     kecamatan: $kecamatan
@@ -78,6 +82,8 @@ query dataKontrak ($id: ID!) {
     }}) {
     rekapKegiatan {
     id
+    program
+    kegiatan
     pekerjaan
     desa
     kecamatan
