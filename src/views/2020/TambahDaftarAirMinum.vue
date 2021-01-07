@@ -40,6 +40,7 @@ import gql from "graphql-tag"
 
 export default {
   data:() => ({
+    datakontrak:[],
      dataAirMinum: {
         nama_pekerjaan: '',
         jumlah_sr: null,
@@ -58,8 +59,8 @@ export default {
         // don't do stupid thing, please.
     
       },
-      update ({airMinums}) {
-        return airMinums
+      update ({rekapKegiatans}) {
+        return rekapKegiatans
       },
     }
   },
