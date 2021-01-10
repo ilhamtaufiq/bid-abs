@@ -32,3 +32,36 @@ mutation addSuratMasuk(
     }
   }
 }
+mutation deleteSurat($id: ID!) {
+  deleteSuratMasuk(input: { where: { id: $id }}) {
+    suratMasuk {
+      id
+    }
+  }
+}
+
+mutation updateSurat($id: ID!, 
+  $asal_surat: String, 
+  $nomor_surat: String, 
+  $perihal_surat: String,
+	$tgl_surat: Date,
+  $tgl_masuk: Date
+) {
+  updateSuratMasuk(input: {where: {id: $id} data: 
+    {
+      asal_surat: $asal_surat, 
+      nomor_surat: $nomor_surat,
+      perihal_surat: $perihal_surat,
+      tgl_surat: $tgl_surat,
+      tgl_masuk: $tgl_masuk
+    }}) {
+    suratMasuk {
+      id
+      asal_surat
+      nomor_surat
+      perihal_surat
+      tgl_surat
+      tgl_masuk
+    }
+  }
+}

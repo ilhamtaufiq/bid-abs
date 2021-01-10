@@ -1,26 +1,25 @@
 <template lang="html">
 <vx-card>
   <div id="data-list-list-view" class="data-list-container">
-      <tambah-surat-masuk :isSidebarActive="TambahSuratMasuk" @closeSidebar="TambahSuratMasuk = false" />
     <vs-table
       multiple
       v-model="selected"
       pagination
       max-items="10"
       search
-      :data="rekapsurat"
+      :data="dataAirMinum"
       >
      <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
        <div class="flex flex-wrap-reverse items-center">
           <!-- Tambah Baru -->
-          <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="TambahSuratMasuk = true">
+          <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="$router.push('/2020/tambahairminum')">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">Tambah Baru</span>
           </div>
           <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="activePrompt2 = true" >
               <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">Download Data</span>
-                <vs-prompt
+                            <vs-prompt
                 @vs-accept="exportToExcel"
                 :vs-active.sync="activePrompt2">
                 <div class="con-exemple-prompt">
@@ -38,17 +37,17 @@
         </div> 
       </div>
       <template slot="thead">
-        <vs-th sort-key="asal_surat">
-          Asal Surat
+        <vs-th sort-key="nama_pekerjaan">
+          Pekerjaan
         </vs-th>
-        <vs-th sort-key="perihal_surat">
-          Perihal Surat
+        <vs-th sort-key="jumlah_sr">
+          Jumlah SR
         </vs-th>
-        <vs-th sort-key="nomor_surat">
-          Nomor Surat
+        <vs-th sort-key="panjang_pipa">
+          Panjang Pipa
         </vs-th>
-        <vs-th sort-key="tgl_surat">
-          Tanggal Surat
+        <vs-th sort-key="penduduk_terlayani">
+          Penduduk Terlayani
         </vs-th>
         <vs-th>
           Opsi
@@ -57,86 +56,72 @@
       <template data="dataTable" slot-scope="{data}">
         <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
           <vs-td :data="data[indextr].id">
-            <span>{{tr.asal_surat}}</span>
-            <template slot="edit">
-              <h5>Ubah: </h5>
-              <vs-input v-on:keyup.enter="editAsalSurat(tr)" :text="rekapsurat.asal_surat" v-model="rekapsurat.asal_surat" ref="input" class="inputx"/>
-            </template>
+            <span>{{tr.nama_pekerjaan}}</span>
           </vs-td>
           <vs-td :data="data[indextr].id">
-            <span>{{tr.perihal_surat}}</span>
+            <span>{{tr.jumlah_sr}}</span>
           </vs-td>
           <vs-td :data="data[indextr].id">
-            <span vs-align="center">{{tr.nomor_surat}}</span>
+            <span vs-align="center">{{tr.panjang_pipa}}</span>
           </vs-td>
         <vs-td :data="data[indextr].id">
-            <span vs-align="center">{{tr.tgl_surat}}</span>
+            <span vs-align="center">{{tr.penduduk_terlayani}}</span>
           </vs-td>
           <vs-td>
-          <vs-button type="border" size="small" icon-pack="feather" @click="deleteSurat(tr)" icon="icon-delete" color="danger" class="mr-2"></vs-button>
+                              <vs-button type="border" size="small" icon-pack="feather" @click="delAirMinum(tr)" icon="icon-delete" color="success" class="mr-2"></vs-button>
+                                                          <vs-button type="border" size="small" icon-pack="feather" @click="$router.push(`/2020/tambahairminum/?edit=${tr.id}`)" icon="icon-edit" color="success" class="mr-2"></vs-button>
+
+
+
+            
           </vs-td> 
         </vs-tr>
       </template> 
     </vs-table>
+    {{selected}}
     </div>
 </vx-card>
 </template>
+
+
 <script>
-import TambahSuratMasuk from './TambahSuratMasuk.vue'
-import {SuratMasuk, deleteSurat, updateSurat} from '@/graphql/SuratMasuk.gql'
-import vSelect from 'vue-select'
-import VxCard from '@/components/vx-card/VxCard.vue'
-import VxTooltip from '@/layouts/components/vx-tooltip/VxTooltip.vue'
-
-
+import {getAirMinum, deleteAirMinum} from '@/graphql/AirMinum.gql'
 
 export default {
-  components: { VxCard, VxTooltip },
   data() {
     return {
-      TambahSuratMasuk: false,
-      fileName: "",
-      formats:[
-        {text:"xlsx", value:"xlsx"}, 
-        {text:"csv", value:"csv"}, 
-        {text:"txt", value:"txt"}
-        ],
-      cellAutoWidth: true,
-      selectedFormat: "xlsx",
-      activePrompt2:false,
-      val:'',
-      valMultipe:{
-        value1:'',
-        value2:''
-      },
-        rekapsurat:[],
-        selected:[],
-        headerVal: ["asal_surat", "perihal_surat", "tgl_surat", "tgl_masuk"],
+          fileName: "",
+          formats:[
+            {text:"xlsx", value:"xlsx"}, 
+            {text:"csv", value:"csv"}, 
+            {text:"txt", value:"txt"}
+            ],
+          cellAutoWidth: true,
+          selectedFormat: "xlsx",
+          activePrompt2:false,
+          val:'',
+          selected:[],
+          headerVal: ["nama_pekerjaan", "jumlah_sr", "panjang_pipa", "penduduk_terlayani"],
 
     }
   },
     apollo:{
-    rekapsurat:{
-      query: SuratMasuk,
+    dataAirMinum:{
+      query: getAirMinum,
       variables () {
         // don't do stupid thing, please.
     
       },
-      update ({suratMasuks}) {
-        return suratMasuks
+      update ({airMinums}) {
+        return airMinums
       },
-    }
-  },
-    computed:{
-    validName(){
-      return (this.valMultipe.value1.length > 0 && this.valMultipe.value2.length > 0)
     }
   },
     methods:{
     exportToExcel() {
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['Asal Surat', 'Perihal Surat', 'Tanggal Surat', 'Tanggal Masuk']
-        const list = this.SuratMasuk
+        const tHeader = ['Pekerjaan', 'Jumlah SR', 'Panjang Pipa', 'Penduduk Terlayani']
+        const list = this.dataAirMinum
         const data = this.formatJson(this.headerVal, list)
         excel.export_json_to_excel({
           header: tHeader, //Header Required
@@ -145,11 +130,6 @@ export default {
           autoWidth: true, //Optional
           bookType: this.selectedFormat
         })
-      })
-        this.$vs.notify({
-        color:'success',
-        title:'Unduh Data',
-        text:'Data Telah Berhasil Diunduh'
       })
     },
         formatJson(filterVal, jsonData) {
@@ -164,38 +144,20 @@ export default {
         return v[j]
       }))
     },
-    editAsalSurat(tr) {
-      	const input = this.$refs.input.$el
-      	this.$apollo.mutate({
-				mutation: updateSurat,
-				variables: {
-        id: tr.id,
-        asal_surat: this.rekapsurat.asal_surat,
-				},
-				optimisticResponse: {
-					__typename: 'Mutation',
-					updateMaps: {
-            __typename: 'suratmasuks',
-            id: tr.id,
-            asal_surat: this.rekapsurat.asal_surat,
-					},
-				},
-			})
-    },
-    deleteSurat(tr) {
+    delAirMinum(tr) {
       this.selected
 			this.$apollo.mutate({
-				mutation: deleteSurat,
+				mutation: deleteAirMinum,
 				variables: {
 					id: tr.id
         },
         update: (store) => {
 					const queries = [
-						{ query: SuratMasuk },
-						{ query: SuratMasuk, variables: {  } },
+						{ query: getAirMinum },
+						{ query: getAirMinum, variables: {  } },
 					]
 					const data = queries.map(query => store.readQuery(query))
-					data.forEach(({ suratMasuks: list }) => {
+					data.forEach(({ airMinums: list }) => {
 						const index = list.findIndex(o => o.id === tr.id)
 						if (index !== -1) {
 							list.splice(index, 1)
@@ -223,30 +185,7 @@ export default {
       let _print = `the user ordered: ${key} ${active}\n`
       this.$refs.pre.appendChild(document.createTextNode(_print))
     },
-      acceptAlert(){
-      this.clearValMultiple();
-      this.$vs.notify({
-        color:'success',
-        title:'Unduh Data',
-        text:'Data Telah Berhasil Diunduh'
-      })
-    },
-    close(){
-      this.$vs.notify({
-        color:'danger',
-        title:'Closed',
-        text:'You close a dialog!'
-      })
-    },
-    clearValMultiple() {
-      this.valMultipe.value1 = "";
-      this.valMultipe.value2 = "";
-
     }
-  },
-  components:{
-    TambahSuratMasuk
-  },
 
 }
 </script>

@@ -65,7 +65,7 @@
             </vx-tooltip>
           <template slot="edit">
               <h5>Ubah Latitude </h5>
-              <vs-input v-on:keyup.enter="editMapsLat(tr)" v-model.number="lat" ref="input"  class="inputx" type="number"/>
+              <vs-input v-on:keyup.enter="editMapsLat(tr)" v-model.number="koordinats.lat" ref="input"  class="inputx" type="number"/>
           </template>
           </vs-td>
           <vs-td :data="data[indextr].long_">
@@ -74,7 +74,7 @@
             </vx-tooltip>
           <template slot="edit">
               <h5>Ubah Longtitude </h5>
-              <vs-input v-on:keyup.enter="editMapsLong(tr)" v-model.number="long_" ref="input" class="inputx" type="number"/>
+              <vs-input v-on:keyup.enter="editMapsLong(tr)" v-model.number="koordinats.long_" ref="input" class="inputx" type="number"/>
           </template>
           </vs-td>
           <vs-td>
@@ -83,30 +83,97 @@
         </vs-tr>
       </template> 
     </vs-table>
-    {{selected}}
+     <div style="height: 500px; width: 100%">
+    <div style="height: 200px overflow: auto;">
+      <p>First marker is placed at {{ koordinats.lat }}, {{ koordinats.long_ }}</p>
+      <p>Center is at {{ currentCenter }} and the zoom is: {{ currentZoom }}</p>
+      <button @click="showLongText">
+        Toggle long popup
+      </button>
+      <button @click="showMap = !showMap">
+        Toggle map
+      </button>
+    </div>
+    <l-map
+      v-if="showMap"
+      :zoom="zoom"
+      :center="center"
+      :options="mapOptions"
+      style="height: 80%"
+      @update:center="centerUpdate"
+      @update:zoom="zoomUpdate"
+    >
+      <l-tile-layer
+        :url="url"
+        :attribution="attribution"
+      />
+      <l-marker :lat-lng="koordinats">
+        <l-popup>
+          <div @click="innerClick">
+            I am a popup
+            <p v-show="showParagraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
+              Donec finibus semper metus id malesuada.
+            </p>
+          </div>
+        </l-popup>
+      </l-marker>
+      <l-marker :lat-lng="withTooltip">
+        <l-tooltip :options="{ permanent: true, interactive: true }">
+          <div @click="innerClick">
+            I am a tooltip
+            <p v-show="showParagraph">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque
+              sed pretium nisl, ut sagittis sapien. Sed vel sollicitudin nisi.
+              Donec finibus semper metus id malesuada.
+            </p>
+          </div>
+        </l-tooltip>
+      </l-marker>
+    </l-map>
+  </div>
+
     </div>
 </template>
 
 <script>
 import TambahDataKoordinat from './TambahDataKoordinat.vue'
 import {getMaps, createMaps, deleteMaps, updateMaps} from "@/graphql/mapsAll.gql"
+import { latLng } from "leaflet";
+import { LMap, LTileLayer, LMarker, LPopup, LTooltip } from "vue2-leaflet";
+
 
 
 
 
 export default {
-    components:{
-    TambahDataKoordinat
-  },
-  data () {
-    return {
+  data:() =>({
+      zoom: 13,
+      center: latLng(-6.8223225, 107.1201758),
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      attribution:'&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+      withPopup: latLng(47.41322, -1.219482),
+      withTooltip: latLng(47.41422, -1.250482),
+      currentZoom: 11.5,
+      currentCenter: latLng(47.41322, -1.219482),
+      showParagraph: false,
+      mapOptions: {zoomSnap: 0.5},
+      showMap: true,
       selected:[],
-      koordinats:[],
+      koordinats:{lat: null, long_: null},
       TambahDataKoordinat: false,
-      lat: null,
-      long_: null
-    }
+  }),
+    components:{
+    TambahDataKoordinat,
+    LMap,
+    LTileLayer,
+    LMarker,
+    LPopup,
+    LTooltip
+
   },
+  
 
   apollo:{
     koordinats:{
@@ -121,20 +188,34 @@ export default {
   },
 
   methods:{
+        zoomUpdate(zoom) {
+      this.currentZoom = zoom;
+    },
+    centerUpdate(center) {
+      this.currentCenter = center;
+    },
+    showLongText() {
+      this.showParagraph = !this.showParagraph;
+    },
+        innerClick() {
+      alert("Click!");
+    }
+,
+
     editMapsLat(tr) {
       	const input = this.$refs.input.$el
       	this.$apollo.mutate({
 				mutation: updateMaps,
 				variables: {
         id: tr.id,
-        lat: this.lat,
+        lat: this.koordinats.lat,
 				},
 				optimisticResponse: {
 					__typename: 'Mutation',
 					updateMaps: {
             __typename: 'Maps',
             id: tr.id,
-            lat: this.lat,
+            lat: this.koordinats.lat,
 					},
 				},
 			})
@@ -145,14 +226,14 @@ export default {
 				mutation: updateMaps,
 				variables: {
         id: tr.id,
-        long_: this.long_,
+        long_: this.koordinats.long_,
 				},
 				optimisticResponse: {
 					__typename: 'Mutation',
 					updateMaps: {
             __typename: 'Maps',
             id: tr.id,
-            long_: this.long_,
+            long_: this.koordinats.long_,
 					},
 				},
 			})

@@ -124,6 +124,24 @@ const router = new Router({
                     }
                 },
                 {
+                    path: '2020/mck',
+                    name: 'MCK',
+                    pageTitle: 'Daftar MCK',
+                    component:() => import('./views/2020/DaftarMCK.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                {
+                    path: '2020/tambahmck',
+                    name: 'TambahDaftarMCK',
+                    pageTitle: 'Tambah Data MCK',
+                    component:() => import('./views/2020/TambahDaftarMCK.vue'),
+                    meta: {
+                        rule: 'admin'
+                    }
+                },
+                {
                     path: '2020/surat',
                     name: 'Surat',
                     pageTitle: 'Agenda Surat',

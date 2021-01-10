@@ -42,6 +42,28 @@ export default [
     icon: "CheckSquareIcon",
   },
   {
+    url: "/2020/mck",
+    name: "Daftar MCK",
+    slug: "mck",
+    icon: "CheckSquareIcon",
+  },
+  {
+    header: "Agenda Surat"
+  },
+  {
+    url: "/2020/surat",
+    name: "Surat Masuk",
+    slug: "surat",
+    icon: "MapIcon",
+  },
+  {
+    url: "/",
+    name: "Surat Keluar",
+    slug: "/",
+    icon: "MapIcon",
+  },
+  
+  {
     header: "Map"
   },
   {
