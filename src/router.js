@@ -44,8 +44,12 @@ const router = new Router({
         // =============================================================================
         // Theme Routes
         // =============================================================================
+        {
+            path: '/',
+            redirect: '/dashboard'
+          },
                 {
-                    path: '/',
+                    path: '/dashboard',
                     name: 'Dashboard',
                     component: () => import('./views/2020/Dashboard.vue'),
                     meta: {

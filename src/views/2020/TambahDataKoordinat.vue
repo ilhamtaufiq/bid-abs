@@ -12,7 +12,12 @@
         <!-- NAME -->
         <vs-input type="number" label="Latitude" name="lat" v-model.number="lat" class="mt-5 w-full" />
         <vs-input type="number" label="Longtitude" name="long_" v-model.number="long_" class="mt-5 w-full" />
-        <vs-select v-model.text="pekerjaan" class="w-full select-large" label="Pekerjaan" placeholder="Pilih Pekerjaan">
+        <vs-select 
+        autocomplete 
+        v-model.text="pekerjaan"
+        class="w-full select-large" 
+        label="Pekerjaan"
+        placeholder="Pilih Pekerjaan">
           <vs-select-item :v-model.text="pekerjaan" :name="pekerjaan" :key="index" :value="item.pekerjaan" :text="item.pekerjaan" v-for="(item,index) in datakontrak" class="w-full" />
         </vs-select>
 

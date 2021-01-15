@@ -1,6 +1,6 @@
 <template>
     <div id="extra-component-chartjs-demo">
-            <h1>Bidang Air Bersih dan Sanitasi Dalam Data</h1> 
+            <h1 class="judul">Bidang Air Bersih dan Sanitasi Dalam Data</h1> 
             </br>   
         <div class="vx-row">
             <div class="vx-col w-full">

@@ -7,7 +7,7 @@ query getAirMinum {
     penduduk_terlayani
     nama_pengelola
   }
-    rekapKegiatans (where: { kegiatan: "Pembangunan SPAM Perdesaan" }) {
+    rekapKegiatans (where: { kegiatan_contains: "SPAM" }) {
     pekerjaan
   }
 }

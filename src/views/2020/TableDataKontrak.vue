@@ -26,7 +26,7 @@
                 :vs-active.sync="activePrompt2">
                 <div class="con-exemple-prompt">
                   Masukkan Nama dan Format File yang Diinginkan
-                  <vs-input  v-model="fileName" placeholder="Nama File.." class="w-full" />
+                  <vs-input  v-model="fileName" name="nama_file" placeholder="Nama File.." class="w-full" />
               <vs-select
                 label="Format"
                 v-model="selectedFormat"
@@ -95,12 +95,11 @@
 import {getKontrak, deleteRekapKegiatan} from '@/graphql/getDataKontrak.gql'
 import vSelect from 'vue-select'
 import VxCard from '../../components/vx-card/VxCard.vue'
-import VxTooltip from '../../layouts/components/vx-tooltip/VxTooltip.vue'
 
 
 
 export default {
-  components: { VxCard, VxTooltip },
+  components: { VxCard },
   data() {
     return {
       fileName: "",

@@ -4,7 +4,7 @@
   <div class="vx-row">
     <div class="vx-col sm:w-1/2 w-full mb-2">
      <!-- <vs-input  class="w-full" label-placeholder="Pekerjaan" v-model="dataAirMinum.nama_pekerjaan" /> -->
-      <vs-select v-model.text="dataAirMinum.nama_pekerjaan" class="w-full select-large" label="Pekerjaan" placeholder="Pilih Pekerjaan">
+      <vs-select autocomplete v-model.text="dataAirMinum.nama_pekerjaan" class="w-full select-large" label="Pekerjaan" placeholder="Pilih Pekerjaan">
           <vs-select-item :v-model.text="dataAirMinum.nama_pekerjaan" :name="dataAirMinum.nama_pekerjaan" :key="index" :value="item.pekerjaan" :text="item.pekerjaan" v-for="(item,index) in datakontrak" class="w-full" />
       </vs-select>
     </div>

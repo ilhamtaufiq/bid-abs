@@ -138,6 +138,9 @@ require('./assets/css/iconfont.css')
 
 Vue.config.productionTip = false
 
+import VxTooltip from '@/layouts/components/vx-tooltip/VxTooltip.vue'
+
+
 new Vue({
     router,
     store,
@@ -146,6 +149,11 @@ new Vue({
     apolloProvider,
     DefaultApolloClient,
     apolloClient,
+    components: {
+      VxTooltip,
+  },
+  el: "#app",
+
     render: h => h(App)
 }).$mount('#app')
 

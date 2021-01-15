@@ -54,29 +54,41 @@
           </vs-th>
      </template>
       <template data="dataTable" slot-scope="{data}">
-        <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
-          <vs-td :data="data[indextr].id">
-            <span>{{tr.nama_pekerjaan}}</span>
-          </vs-td>
-          <vs-td :data="data[indextr].id">
-            <span>{{tr.jumlah_sr}}</span>
-          </vs-td>
-          <vs-td :data="data[indextr].id">
-            <span vs-align="center">{{tr.panjang_pipa}}</span>
-          </vs-td>
-        <vs-td :data="data[indextr].id">
-            <span vs-align="center">{{tr.penduduk_terlayani}}</span>
-          </vs-td>
-          <vs-td>
-                              <vs-button type="border" size="small" icon-pack="feather" @click="delAirMinum(tr)" icon="icon-delete" color="success" class="mr-2"></vs-button>
-                                                          <vs-button type="border" size="small" icon-pack="feather" @click="$router.push(`/2020/tambahairminum/?edit=${tr.id}`)" icon="icon-edit" color="success" class="mr-2"></vs-button>
-
-
-
-            
-          </vs-td> 
-        </vs-tr>
-      </template> 
+  <vs-tr :data="tr" :key="indextr" v-for="(tr, indextr) in data">
+    <vs-td :data="data[indextr].id">
+      <span>{{ tr.nama_pekerjaan }}</span>
+    </vs-td>
+    <vs-td :data="data[indextr].id">
+      <span>{{ tr.jumlah_sr }}</span>
+    </vs-td>
+    <vs-td :data="data[indextr].id">
+      <span vs-align="center">{{ tr.panjang_pipa }}</span>
+    </vs-td>
+    <vs-td :data="data[indextr].id">
+      <span vs-align="center">{{ tr.penduduk_terlayani }}</span>
+    </vs-td>
+    <vs-td>
+      <vs-button
+        type="border"
+        size="small"
+        icon-pack="feather"
+        @click="delAirMinum(tr)"
+        icon="icon-delete"
+        color="success"
+        class="mr-2"
+      ></vs-button>
+      <vs-button
+        type="border"
+        size="small"
+        icon-pack="feather"
+        @click="$router.push(`/2020/tambahairminum/?edit=${tr.id}`)"
+        icon="icon-edit"
+        color="success"
+        class="mr-2"
+      ></vs-button>
+    </vs-td>
+  </vs-tr>
+</template> 
     </vs-table>
     {{selected}}
     </div>
@@ -85,107 +97,116 @@
 
 
 <script>
-import {getAirMinum, deleteAirMinum} from '@/graphql/AirMinum.gql'
+import { getAirMinum, deleteAirMinum } from "@/graphql/AirMinum.gql";
 
 export default {
   data() {
     return {
-          fileName: "",
-          formats:[
-            {text:"xlsx", value:"xlsx"}, 
-            {text:"csv", value:"csv"}, 
-            {text:"txt", value:"txt"}
-            ],
-          cellAutoWidth: true,
-          selectedFormat: "xlsx",
-          activePrompt2:false,
-          val:'',
-          selected:[],
-          headerVal: ["nama_pekerjaan", "jumlah_sr", "panjang_pipa", "penduduk_terlayani"],
-
-    }
+      fileName: "",
+      formats: [
+        { text: "xlsx", value: "xlsx" },
+        { text: "csv", value: "csv" },
+        { text: "txt", value: "txt" },
+      ],
+      cellAutoWidth: true,
+      selectedFormat: "xlsx",
+      activePrompt2: false,
+      val: "",
+      selected: [],
+      headerVal: [
+        "nama_pekerjaan",
+        "jumlah_sr",
+        "panjang_pipa",
+        "penduduk_terlayani",
+      ],
+    };
   },
-    apollo:{
-    dataAirMinum:{
+  apollo: {
+    dataAirMinum: {
       query: getAirMinum,
-      variables () {
+      variables() {
         // don't do stupid thing, please.
-    
       },
-      update ({airMinums}) {
-        return airMinums
+      update({ airMinums }) {
+        return airMinums;
       },
-    }
+    },
   },
-    methods:{
+  methods: {
     exportToExcel() {
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['Pekerjaan', 'Jumlah SR', 'Panjang Pipa', 'Penduduk Terlayani']
-        const list = this.dataAirMinum
-        const data = this.formatJson(this.headerVal, list)
+      import("@/vendor/Export2Excel").then((excel) => {
+        const tHeader = [
+          "Pekerjaan",
+          "Jumlah SR",
+          "Panjang Pipa",
+          "Penduduk Terlayani",
+        ];
+        const list = this.dataAirMinum;
+        const data = this.formatJson(this.headerVal, list);
         excel.export_json_to_excel({
           header: tHeader, //Header Required
           data, //Specific data Required
           filename: this.fileName,
           autoWidth: true, //Optional
-          bookType: this.selectedFormat
-        })
-      })
+          bookType: this.selectedFormat,
+        });
+      });
     },
-        formatJson(filterVal, jsonData) {
-      return jsonData.map(v => filterVal.map(j => {
-        // Add col name which needs to be translated
-        // if (j === 'timestamp') {
-        //   return parseTime(v[j])
-        // } else {
-        //   return v[j]
-        // }
+    formatJson(filterVal, jsonData) {
+      return jsonData.map((v) =>
+        filterVal.map((j) => {
+          // Add col name which needs to be translated
+          // if (j === 'timestamp') {
+          //   return parseTime(v[j])
+          // } else {
+          //   return v[j]
+          // }
 
-        return v[j]
-      }))
+          return v[j];
+        })
+      );
     },
     delAirMinum(tr) {
-      this.selected
-			this.$apollo.mutate({
-				mutation: deleteAirMinum,
-				variables: {
-					id: tr.id
+      this.selected;
+      this.$apollo.mutate({
+        mutation: deleteAirMinum,
+        variables: {
+          id: tr.id,
         },
         update: (store) => {
-					const queries = [
-						{ query: getAirMinum },
-						{ query: getAirMinum, variables: {  } },
-					]
-					const data = queries.map(query => store.readQuery(query))
-					data.forEach(({ airMinums: list }) => {
-						const index = list.findIndex(o => o.id === tr.id)
-						if (index !== -1) {
-							list.splice(index, 1)
-						}
-					})
-					queries.forEach((query, index) => {
-						store.writeQuery({
-							...query,
-							data: data[index],
-						})
-					})
+          const queries = [
+            { query: getAirMinum },
+            { query: getAirMinum, variables: {} },
+          ];
+          const data = queries.map((query) => store.readQuery(query));
+          data.forEach(({ airMinums: list }) => {
+            const index = list.findIndex((o) => o.id === tr.id);
+            if (index !== -1) {
+              list.splice(index, 1);
+            }
+          });
+          queries.forEach((query, index) => {
+            store.writeQuery({
+              ...query,
+              data: data[index],
+            });
+          });
         },
-      })
-      location.reload()
+      });
+      location.reload();
     },
     handleSearch(searching) {
-      let _print = `The user searched for: ${searching}\n`
-      this.$refs.pre.appendChild(document.createTextNode(_print))
+      let _print = `The user searched for: ${searching}\n`;
+      this.$refs.pre.appendChild(document.createTextNode(_print));
     },
     handleChangePage(page) {
-      let _print = `The user changed the page to: ${page}\n`
-      this.$refs.pre.appendChild(document.createTextNode(_print))
+      let _print = `The user changed the page to: ${page}\n`;
+      this.$refs.pre.appendChild(document.createTextNode(_print));
     },
     handleSort(key, active) {
-      let _print = `the user ordered: ${key} ${active}\n`
-      this.$refs.pre.appendChild(document.createTextNode(_print))
+      let _print = `the user ordered: ${key} ${active}\n`;
+      this.$refs.pre.appendChild(document.createTextNode(_print));
     },
-    }
-
-}
+  },
+};
 </script>
