@@ -52,8 +52,6 @@
 </template>
 
 <script>
-import {FormWizard, TabContent} from 'vue-form-wizard'
-import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import {createRekapKegiatan, updateKontrak, dataKontrak} from '@/graphql/dataKontrak.gql'
 import VxCard from '../../components/vx-card/VxCard.vue'
 import gql from "graphql-tag"
@@ -108,7 +106,7 @@ export default {
                                 },
                             },
             });
-            window.location.replace("/2020/rekapkegiatan");
+            window.location.replace("/2021/rekapkegiatan");
             
             
         },
@@ -130,7 +128,7 @@ export default {
                     id: this.$route.query.edit
                 }
             });
-            window.location.replace("/2020/rekapkegiatan");
+            window.location.replace("/2021/rekapkegiatan");
         }
     },
     created(){
@@ -140,10 +138,7 @@ export default {
     },
 
     components: {
-        FormWizard,
-        TabContent,
         VxCard
     }
 }
 </script>
-        

@@ -30,19 +30,19 @@ export default [
   },
 
   {
-    url: "/2020/rekapkegiatan",
+    url: "/2021/rekapkegiatan",
     name: "Rekap Kontrak",
     slug: "rekapkontrak",
     icon: "CheckSquareIcon",
   },
   {
-    url: "/2020/airminum",
+    url: "/2021/airminum",
     name: "Daftar SPAM",
     slug: "airminum",
     icon: "CheckSquareIcon",
   },
   {
-    url: "/2020/mck",
+    url: "/2021/mck",
     name: "Daftar MCK",
     slug: "mck",
     icon: "CheckSquareIcon",
@@ -51,23 +51,23 @@ export default [
     header: "Agenda Surat"
   },
   {
-    url: "/2020/surat",
+    url: "/2021/surat",
     name: "Surat Masuk",
     slug: "surat",
-    icon: "MapIcon",
+    icon: "DownloadIcon",
   },
   {
     url: "/",
     name: "Surat Keluar",
     slug: "/",
-    icon: "MapIcon",
+    icon: "UploadIcon",
   },
   
   {
     header: "Map"
   },
   {
-    url: "/2020/koordinat",
+    url: "/2021/koordinat",
     name: "Koordinat",
     slug: "koordinat",
     icon: "MapIcon",

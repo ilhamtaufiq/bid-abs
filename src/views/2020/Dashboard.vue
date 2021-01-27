@@ -4,12 +4,12 @@
             </br>   
         <div class="vx-row">
             <div class="vx-col w-full">
-                <chartjs-line-chart></chartjs-line-chart>
-            </div>
-            <!-- Chart Lainnya
-            <div class="vx-col w-full md:w-1/2">
                 <chartjs-bar-chart></chartjs-bar-chart>                 
             </div>
+            <div class="vx-col w-full md:w-1/2">
+                <chartjs-horizontal-bar-chart></chartjs-horizontal-bar-chart>
+            </div>
+            <!-- 
             <div class="vx-col w-full md:w-1/2">
                 <chartjs-horizontal-bar-chart></chartjs-horizontal-bar-chart>
             </div>
@@ -57,7 +57,6 @@ export default {
         ChartjsDoughnutChart,
         ChartjsHorizontalBarChart,
         ChartjsScatterChart,
-        ChartjsBubbleChart,
-    }
+        ChartjsBubbleChart,    }
 }
 </script>

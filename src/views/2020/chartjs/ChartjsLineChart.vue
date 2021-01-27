@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import LineChart from "@/views/2020/chartjs/chart.js";
-import {getAirMinum, deleteAirMinum} from '@/graphql/AirMinum.gql'
+import ChartjsComponentLineChart from "./ChartjsComponentLineChart.vue";
+import {getAirMinum, deleteAirMinum} from "@/graphql/AirMinum.gql"
 import graphql2chartjs from "graphql2chartjs"
 import gql from "graphql-tag"
 
@@ -29,7 +29,7 @@ export default {
                 },
                 title: {
                     display: true,
-                    text: 'Jumlah Sambungan Rumah SPAM Perdesaan'
+                    text: 'Jumlah Sambungan Rumah SPAM Perdesaan',
                 }
             }
     }),
@@ -39,7 +39,7 @@ export default {
         airMinums {
             label: nama_pekerjaan,
             data: jumlah_sr,
-            borderColor: color
+            backgroundColor: color
 
         }
       }`,
@@ -55,7 +55,7 @@ export default {
     },
   
     components: {
-        LineChart
+        ChartjsComponentLineChart
     }
 }
 </script>

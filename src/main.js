@@ -149,11 +149,10 @@ new Vue({
     apolloProvider,
     DefaultApolloClient,
     apolloClient,
+    el: "#app",
     components: {
       VxTooltip,
   },
-  el: "#app",
-
     render: h => h(App)
 }).$mount('#app')
 

@@ -1,0 +1,9 @@
+query jumlah_spam{
+  airMinumsConnection{
+    aggregate{
+      sum{
+      jumlah_sr
+      }
+    }
+  }
+}

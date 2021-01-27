@@ -43,3 +43,32 @@ mutation addAirMinum(
     }
   }
 }
+mutation updateAirMinum(
+  $id: ID!
+  $nama_pekerjaan: String
+  $jumlah_sr: Int
+  $panjang_pipa: Int
+  $penduduk_terlayani: Int
+  $nama_pengelola: String
+) {
+  updateAirMinum(
+    input: {
+      where: { id: $id }
+      data: {
+        nama_pekerjaan: $nama_pekerjaan
+        jumlah_sr: $jumlah_sr
+        panjang_pipa: $panjang_pipa
+        penduduk_terlayani: $penduduk_terlayani
+        nama_pengelola: $nama_pengelola
+      }
+    }
+  ) {
+    airMinum {
+      nama_pekerjaan
+      jumlah_sr
+      panjang_pipa
+      penduduk_terlayani
+      nama_pengelola
+    }
+  }
+}

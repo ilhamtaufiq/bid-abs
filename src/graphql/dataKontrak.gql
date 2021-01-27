@@ -52,7 +52,7 @@ query dataKontrak ($id: ID!) {
     tgl_selesai
   }
 }
-    mutation updateKontrak(
+  mutation updateKontrak(
   $id: ID!
   $program: String
   $kegiatan: String

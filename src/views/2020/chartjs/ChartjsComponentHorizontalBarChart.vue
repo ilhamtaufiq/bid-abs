@@ -1,30 +1,27 @@
-<!-- =========================================================================================
-	File Name: ChartjsComponentHorizontalBarChart.vue
-	Description: Chartjs component - Horizontal Bar Chart
-	----------------------------------------------------------------------------------------
-	Item Name: Vuesax Admin - VueJS Dashboard Admin Template
-	Author: Pixinvent
-	Author URL: http://www.themeforest.net/user/pixinvent
-========================================================================================== -->
-
-
+<template>
+<div>
+ {{jumlah_spam}}
+</div>
+  
+</template>
 <script>
-import { HorizontalBar } from 'vue-chartjs'
-
+import jumlah_spam from '@/graphql/jumlah_spam.gql'
 export default {
-    extends: HorizontalBar,
-    props: {
-        data: {
-            type: Object,
-            default: null,
-        },
-        options: {
-            type: Object,
-            default: null,
-        }
+  data() {
+    return{
+      jumlah_spam: null,
+    };
+  },
+  apollo: {
+    jumlah_spam: {
+      query: jumlah_spam,
+      variables() {
+        // don't do stupid thing, please.
+      },
+      update({ airMinumsConnection }) {
+        return airMinumsConnection;
+      },
     },
-    mounted() {
-        this.renderChart(this.data, this.options)
-    }
+  },
 }
 </script>

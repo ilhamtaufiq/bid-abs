@@ -8,3 +8,22 @@ mutation createMap($lat: Float!, $long_: Float!, $pekerjaan: String!) {
     }
   }
 }
+query mapsAll {
+  maps {
+    id
+    lat
+    long_
+    pekerjaan
+  }
+  rekapKegiatans{
+    id
+    pekerjaan
+    desa
+    kecamatan
+    nomor_kontrak
+    nilai_kontrak
+    nama_rekanan
+    tgl_mulai
+    tgl_selesai
+  }
+}

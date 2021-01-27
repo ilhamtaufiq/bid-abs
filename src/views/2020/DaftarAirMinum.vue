@@ -2,24 +2,27 @@
 <vx-card>
   <div id="data-list-list-view" class="data-list-container">
     <vs-table
-      multiple
-      v-model="selected"
-      pagination
-      max-items="10"
-      search
-      :data="dataAirMinum"
+        :sst="true"
+        @search="handleSearch"
+        @change-page="handleChangePage"
+        @sort="handleSort"
+        v-model="selected"
+        pagination
+        max-items="5"
+        search
+        :data="dataAirMinum"
       >
      <div slot="header" class="flex flex-wrap-reverse items-center flex-grow justify-between">
        <div class="flex flex-wrap-reverse items-center">
           <!-- Tambah Baru -->
-          <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="$router.push('/2020/tambahairminum')">
+          <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="$router.push('/2021/tambahairminum')">
               <feather-icon icon="PlusIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">Tambah Baru</span>
           </div>
           <div class="p-3 mb-4 mr-4 rounded-lg cursor-pointer flex items-center justify-between text-lg font-medium text-base text-primary border border-solid border-primary" @click="activePrompt2 = true" >
               <feather-icon icon="SaveIcon" svgClasses="h-4 w-4" />
               <span class="ml-2 text-base text-primary">Download Data</span>
-                            <vs-prompt
+                <vs-prompt
                 @vs-accept="exportToExcel"
                 :vs-active.sync="activePrompt2">
                 <div class="con-exemple-prompt">
@@ -81,7 +84,7 @@
         type="border"
         size="small"
         icon-pack="feather"
-        @click="$router.push(`/2020/tambahairminum/?edit=${tr.id}`)"
+        @click="$router.push(`/2021/tambahairminum/?edit=${tr.id}`)"
         icon="icon-edit"
         color="success"
         class="mr-2"
@@ -102,6 +105,7 @@ import { getAirMinum, deleteAirMinum } from "@/graphql/AirMinum.gql";
 export default {
   data() {
     return {
+      dataAirMinum:[],
       fileName: "",
       formats: [
         { text: "xlsx", value: "xlsx" },

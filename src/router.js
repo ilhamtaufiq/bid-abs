@@ -46,10 +46,10 @@ const router = new Router({
         // =============================================================================
         {
             path: '/',
-            redirect: '/dashboard'
+            redirect: '/2021/dashboard'
           },
                 {
-                    path: '/dashboard',
+                    path: '/2021/dashboard',
                     name: 'Dashboard',
                     component: () => import('./views/2020/Dashboard.vue'),
                     meta: {
@@ -69,7 +69,7 @@ const router = new Router({
     // =============================================================================
      
                 {
-                    path: '/2020/koordinat',
+                    path: '/2021/koordinat',
                     name: 'DaftarKoordinat',
                     component: () => import('./views/2020/DaftarKoordinat.vue'),
                     meta: {
@@ -78,7 +78,7 @@ const router = new Router({
                 },  
 
                 {
-                    path: '2020/datakontrak',
+                    path: '2021/datakontrak',
                     name: 'DataKontrak',
                     component:() => import('./views/2020/DataKontrak.vue'),
                     meta: {
@@ -92,7 +92,7 @@ const router = new Router({
                     },
                 },
                 {
-                    path: '2020/rekapkegiatan',
+                    path: '2021/rekapkegiatan',
                     name: 'Rekapkegiatan',
                     pageTitle: 'Rekap Kegiatan',
                     component:() => import('./views/2020/TableDataKontrak.vue'),
@@ -101,7 +101,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '2020/perjadin',
+                    path: '2021/perjadin',
                     name: 'PerjaDin',
                     pageTitle: 'Perjalanan Dinas',
                     component:() => import('./views/2020/PerjaDin.vue'),
@@ -110,7 +110,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '2020/airminum',
+                    path: '2021/airminum',
                     name: 'AirMinum',
                     pageTitle: 'Air Minum',
                     component:() => import('./views/2020/DaftarAirMinum.vue'),
@@ -119,7 +119,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '2020/tambahairminum',
+                    path: '2021/tambahairminum',
                     name: 'TambahDaftarAirMinum',
                     pageTitle: 'Tambah Data Air Minum',
                     component:() => import('./views/2020/TambahDaftarAirMinum.vue'),
@@ -128,7 +128,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '2020/mck',
+                    path: '2021/mck',
                     name: 'MCK',
                     pageTitle: 'Daftar MCK',
                     component:() => import('./views/2020/DaftarMCK.vue'),
@@ -137,7 +137,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '2020/tambahmck',
+                    path: '2021/tambahmck',
                     name: 'TambahDaftarMCK',
                     pageTitle: 'Tambah Data MCK',
                     component:() => import('./views/2020/TambahDaftarMCK.vue'),
@@ -146,7 +146,7 @@ const router = new Router({
                     }
                 },
                 {
-                    path: '2020/surat',
+                    path: '2021/surat',
                     name: 'Surat',
                     pageTitle: 'Agenda Surat',
                     component:() => import('./views/2020/surat/Todo.vue'),

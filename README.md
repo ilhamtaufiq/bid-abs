@@ -8,6 +8,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [v17] - 16-01-2021
+
+### Added
+- e2e dan unit testing
+
+### Changed
+- Testing files
+
+
 
 ## [v14] - 09-01-2021
 

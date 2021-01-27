@@ -1,0 +1,24 @@
+import { mount, createLocalVue } from '@vue/test-utils';
+import { expect } from 'chai'
+import Vue from 'vue';
+import vuesax from 'vuesax';
+import Rekapkegiatan from '@/views/2020/TableDataKontrak.vue'
+import { PlusIcon } from 'vue-feather-icons'
+
+
+let localVue;
+
+describe('Halaman Rekap Kontrak', () => {
+  beforeEach(() => {
+    const Vue = createLocalVue();
+    Vue.use(vuesax);
+    Vue.use(PlusIcon);
+    localVue = Vue;
+  });
+
+  it('renders component without an error', () => {
+    const wrapper = mount(Rekapkegiatan, { localVue });
+    expect(wrapper.isVueInstance()).to.be.ok;
+  });
+});
+
